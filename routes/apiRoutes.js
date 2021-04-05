@@ -1,8 +1,9 @@
 // The following API routes should be created:
 const notesData = require('../db/db.json');
 const fs = require('fs');
+const express = require('express')
 // const { allowedNodeEnvironmentFlags } = require('process');
-module.exports = (app) => {
+module.exports = (app) => { app.get('/api/notes', (req, res) => {res.json(db)})
     // * `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
 
     app.get('/api/notes', (req, res) => res.json(notesData));
