@@ -1,9 +1,10 @@
 // The following API routes should be created:
 const notesData = require('../db/db.json');
 const fs = require('fs');
-const express = require('express')
+const express = require('express');
+const uniqId = require('uniqid');
 // const { allowedNodeEnvironmentFlags } = require('process');
-module.exports = (app) => { app.get('/api/notes', (req, res) => {res.json(db)})
+module.exports = (app) => { app.get('/api/notes', (req, res) => {res.json(notesData)})
     // * `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
 
     app.get('/api/notes', (req, res) => res.json(notesData));
@@ -13,9 +14,10 @@ module.exports = (app) => { app.get('/api/notes', (req, res) => {res.json(db)})
         const newNote = {
             title: req.body.title,
             text: req.body.text,
-            id: req.body.id,
+            id: uniqueid()
         };
-        const notes = JSON.parse(fs.readFileSync('/db/db.json', 'uf8'));
+        notesData.push(newNote)
+        const notes = JSON.parse(fs.readFileSync('../db/db.json'));
         newNote.id = (notes.length).string();
         const noteArray = [...notes, postNote];
         fs.writeFileSync('/db/db.json', JSON.stringify(noteArray));
@@ -30,4 +32,6 @@ module.exports = (app) => { app.get('/api/notes', (req, res) => {res.json(db)})
     app.get("/api/notes", (req, res) => {
         res.json(notesData);
     })
+
+   
 }
