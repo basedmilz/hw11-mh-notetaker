@@ -1,6 +1,7 @@
 // The following API routes should be created:
 const notesData = require('../db/db.json');
 const fs = require('fs');
+// const { allowedNodeEnvironmentFlags } = require('process');
 module.exports = (app) => {
     // * `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
 
@@ -23,5 +24,9 @@ module.exports = (app) => {
     app.get('/api/notes', (req, res) => {
         const notes = fs.readFileSync('./db/db.json', 'utf8')
         res.json(JSON.parse(notes))
+    })
+// Get all notes
+    app.get("/api/notes", (req, res) => {
+        res.json(notesData);
     })
 }
