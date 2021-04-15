@@ -14,12 +14,11 @@ module.exports = (app) => { app.get('/api/notes', (req, res) => {res.json(notesD
         const newNote = {
             title: req.body.title,
             text: req.body.text,
-            id: uniqueid()
+            id: uniqId,
         };
-        notesData.push(newNote)
+        notesData.push(req.body)
         const notes = JSON.parse(fs.readFileSync('../db/db.json'));
         newNote.id = (notes.length).string();
-        const noteArray = [...notes, postNote];
         fs.writeFileSync('/db/db.json', JSON.stringify(noteArray));
         res.sendStatus(200);
       
